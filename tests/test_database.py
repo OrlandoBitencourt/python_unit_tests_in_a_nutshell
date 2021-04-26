@@ -88,7 +88,7 @@ class TestDataBase(TestCase):
 
         mock_conn_and_cursor_exist.return_value = False
         with self.assertRaises(Exception) as error:
-            DataBase().delete_data("", ("",""))
+            DataBase().delete_data("", ("", ""))
 
         self.assertEqual("Connetion or cursor is not defined!", error.exception.args[0])
 
@@ -115,10 +115,10 @@ class TestDataBase(TestCase):
 
         with mock.patch("testes_unit_bd.app.database.DataBase.cursor", create=True) as mock_cursor:
             mock_cursor.execute.side_effect = [0, 1]
-            self.assertEqual(DataBase().delete_data("", ("","")), False)
-            self.assertEqual(DataBase().delete_data("", ("","")), True)
+            self.assertEqual(DataBase().delete_data("", ("", "")), False)
+            self.assertEqual(DataBase().delete_data("", ("", "")), True)
 
-        self.assertFalse(DataBase().delete_data("", ("","")))
+        self.assertFalse(DataBase().delete_data("", ("", "")))
 
     @mock.patch("testes_unit_bd.app.database.DataBase.is_database_selected")
     @mock.patch("testes_unit_bd.app.database.DataBase.conn_and_cursor_exist")
@@ -153,7 +153,7 @@ class TestDataBase(TestCase):
         with mock.patch("testes_unit_bd.app.database.DataBase.cursor", create=True) as mock_cursor:
             mock_cursor.execute.side_effect = [0, 1]
             self.assertIsInstance(DataBase().select_data("", []), list)
-            self.assertIsInstance(DataBase().select_data("", [('','')]), list)
+            self.assertIsInstance(DataBase().select_data("", [('', '')]), list)
 
         self.assertIsInstance(DataBase().select_data("", []), list)
         self.assertIsInstance(DataBase().select_data("", [('', '')]), list)
@@ -164,7 +164,7 @@ class TestDataBase(TestCase):
     def test_update_data_works(self, mock_conn_and_cursor_exist, mock_is_database_selected):
         mock_conn_and_cursor_exist.return_value = False
         with self.assertRaises(Exception) as error:
-            DataBase().update_data("", [('','')],[('','')])
+            DataBase().update_data("", [('', '')], [('', '')])
 
         self.assertEqual("Connetion or cursor is not defined!", error.exception.args[0])
 
@@ -174,7 +174,7 @@ class TestDataBase(TestCase):
 
         mock_is_database_selected.return_value = False
         with self.assertRaises(Exception) as error:
-            DataBase().update_data("", [('','')],[('','')])
+            DataBase().update_data("", [('', '')], [('', '')])
 
         self.assertEqual("Database is not selected!", error.exception.args[0])
 
@@ -196,10 +196,10 @@ class TestDataBase(TestCase):
 
         with mock.patch("testes_unit_bd.app.database.DataBase.cursor", create=True) as mock_cursor:
             mock_cursor.execute.side_effect = [0, 1]
-            self.assertEqual(DataBase().update_data("", [('','')],[('','')]), False)
-            self.assertEqual(DataBase().update_data("", [('','')],[('','')]), True)
+            self.assertEqual(DataBase().update_data("", [('', '')], [('', '')]), False)
+            self.assertEqual(DataBase().update_data("", [('', '')], [('', '')]), True)
 
-        self.assertFalse(DataBase().update_data("", [('','')], [('','')]))
+        self.assertFalse(DataBase().update_data("", [('', '')], [('', '')]))
 
 
     # @classmethod
