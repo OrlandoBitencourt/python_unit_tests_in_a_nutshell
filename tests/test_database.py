@@ -1,4 +1,3 @@
-from testes_unit_bd.app import *
 from testes_unit_bd.app.database import *
 from unittest import mock, TestCase
 import MySQLdb
@@ -98,7 +97,7 @@ class TestDataBase(TestCase):
 
         mock_is_database_selected.return_value = False
         with self.assertRaises(Exception) as error:
-            DataBase().delete_data("", ("",""))
+            DataBase().delete_data("", ("", ""))
 
         self.assertEqual("Database is not selected!", error.exception.args[0])
 
@@ -158,7 +157,6 @@ class TestDataBase(TestCase):
         self.assertIsInstance(DataBase().select_data("", []), list)
         self.assertIsInstance(DataBase().select_data("", [('', '')]), list)
 
-
     @mock.patch("testes_unit_bd.app.database.DataBase.is_database_selected")
     @mock.patch("testes_unit_bd.app.database.DataBase.conn_and_cursor_exist")
     def test_update_data_works(self, mock_conn_and_cursor_exist, mock_is_database_selected):
@@ -200,7 +198,6 @@ class TestDataBase(TestCase):
             self.assertEqual(DataBase().update_data("", [('', '')], [('', '')]), True)
 
         self.assertFalse(DataBase().update_data("", [('', '')], [('', '')]))
-
 
     # @classmethod
     # def setUpClass(cls) -> None:
